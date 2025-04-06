@@ -1,12 +1,110 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Greeting Result</title>
+    <title>ChordFinder Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .chord-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: #e9ecef;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .notes-display {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .music-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-<h2 th:text="${message}">Hello!</h2>
-<a href="/">Go to ChordFinder</a>
+    <div class="container mt-5">
+        <h1 class="mb-4">
+            <span class="music-icon">🎵</span>
+            ChordFinder Results
+        </h1>
+        
+        <!-- Display test message if present -->
+        <div th:if="${message}" class="alert alert-info" th:text="${message}">
+            Test message
+        </div>
+        
+        <!-- Display chord results -->
+        <div th:if="${chords != null}">
+            <h3 class="mb-3">Notes Analyzed:</h3>
+            <div class="notes-display" th:text="${notes}">C, E, G, B</div>
+            
+            <h3 class="mb-3">Possible Chords:</h3>
+            <div class="mb-4">
+                <div th:if="${chords.isEmpty()}" class="alert alert-warning">
+                    No recognized chords found for these notes.
+                </div>
+                <div th:each="chord : ${chords}" class="chord-name" th:text="${chord}">
+                    C maj7
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form to try again -->
+        <div class="mt-4">
+            <form th:if="${chordFinderForm}" th:action="@{/findChords}" th:object="${chordFinderForm}" method="post">
+                <div class="mb-3">
+                    <label for="notes" class="form-label">Try different notes:</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="notes" 
+                           name="notes" 
+                           th:field="*{notes}" 
+                           placeholder="e.g., C, E, G, Bb" 
+                           required />
+                    <div class="form-text">Enter 3-12 notes separated by commas or spaces</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Analysis Method:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="method" id="method1" value="Method1" th:field="*{method}">
+                        <label class="form-check-label" for="method1">
+                            Method 1 (Interval-Based)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="method" id="method2" value="Method2" th:field="*{method}">
+                        <label class="form-check-label" for="method2">
+                            Method 2 (Root-Based)
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Find Chords</button>
+                <a href="/" class="btn btn-outline-secondary ms-2">Reset</a>
+            </form>
+            
+            <div th:unless="${chordFinderForm}" class="text-center">
+                <a href="/" class="btn btn-primary">Go to ChordFinder</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
