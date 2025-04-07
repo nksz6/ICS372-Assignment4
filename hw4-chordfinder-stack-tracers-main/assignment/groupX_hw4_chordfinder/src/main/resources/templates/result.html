@@ -32,17 +32,18 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
-        .music-icon {
-            font-size: 1.5em;
-            margin-right: 10px;
+        .note-example {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">
-            <span class="music-icon">🎵</span>
-            ChordFinder Results
+            ChordFinder 2.0
         </h1>
         
         <!-- Display test message if present -->
@@ -103,6 +104,33 @@
             
             <div th:unless="${chordFinderForm}" class="text-center">
                 <a href="/" class="btn btn-primary">Go to ChordFinder</a>
+            </div>
+        </div>
+        
+        <!-- Method explanation -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">About the Methods:</h5>
+                <p class="card-text">
+                    <strong>Method 1 (Interval-Based)</strong> analyzes the intervals between adjacent notes to identify chord patterns.
+                </p>
+                <p class="card-text">
+                    <strong>Method 2 (Root-Based)</strong> analyzes the semitone distances from the root note to identify chord patterns.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Example chords -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Example Note Combinations:</h5>
+                <ul>
+                    <li><span class="note-example">C E G</span> - C Major</li>
+                    <li><span class="note-example">C Eb G</span> - C Minor</li>
+                    <li><span class="note-example">C E G B</span> - C Major 7</li>
+                    <li><span class="note-example">C E G Bb</span> - C Dominant 7</li>
+                    <li><span class="note-example">C Eb Gb Bb</span> - C Half-diminished (m7♭5)</li>
+                </ul>
             </div>
         </div>
     </div>
