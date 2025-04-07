@@ -23,4 +23,9 @@ public class ChordFinderForm {
     public void setMethod(String method) {
         this.method = method;
     }
+    
+    @Override
+    public String toString() {
+        return "ChordFinderForm [notes=" + notes + ", method=" + method + "]";
+    }
 }

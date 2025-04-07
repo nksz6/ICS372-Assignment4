@@ -23,10 +23,6 @@
             color: #dc3545;
             margin-top: 10px;
         }
-        .music-icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
         .note-example {
             font-family: monospace;
             background-color: #f8f9fa;
@@ -38,7 +34,6 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">
-            <span class="music-icon">🎵</span>
             ChordFinder 2.0
         </h1>
         
@@ -50,6 +45,10 @@
                 </p>
                 <p class="card-text">
                     Supported notes: C, C#, Db, D, D#, Eb, E, F, F#, Gb, G, G#, Ab, A, A#, Bb, B
+                </p>
+                <p class="card-text">
+                    <strong>Method 1</strong> (Interval-Based): Analyzes the intervals between adjacent notes.<br>
+                    <strong>Method 2</strong> (Root-Based): Analyzes semitone distances from the root.
                 </p>
             </div>
         </div>
@@ -74,7 +73,7 @@
             <div class="mb-3">
                 <label class="form-label">Analysis Method:</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="method" id="method1" value="Method1" th:field="*{method}" checked>
+                    <input class="form-check-input" type="radio" name="method" id="method1" value="Method1" th:field="*{method}">
                     <label class="form-check-label" for="method1">
                         Method 1 (Interval-Based)
                     </label>
